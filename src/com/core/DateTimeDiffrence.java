@@ -8,6 +8,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Year;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +23,9 @@ public class DateTimeDiffrence {
 	public static void main(String[] args) throws Exception {
 		DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
 		try {
+
+			// 1st Method...
+
 			Date date = sourceFormat.parse("03/11/2019");
 			LocalDate today = LocalDate.now();
 			String testDate = sourceFormat.format(date);
@@ -37,7 +43,9 @@ public class DateTimeDiffrence {
 			String requestDate = dateFormat.format(calendar.getTime());
 			Date todayDate=dateFormat.parse(requestDate);
 			String newDate = dateFormat.format(date);
+
 			System.err.println("=-=-=--=Method 2=-=-=-=-=-=");
+
 			System.err.println("new Date=" + newDate);
 			System.err.println("Calendar time=" + requestDate);
 			if (date.before(todayDate))
@@ -55,6 +63,35 @@ public class DateTimeDiffrence {
 			System.err.println(e.getMessage());
 		}
 
+		// Joda time api
+
+		LocalDate dat = LocalDate.now();
+		System.err.println("=========Method-3==========");
+		System.out.println("Joda Date ->" + dat);
+		int dd = dat.getDayOfMonth();
+		int mm = dat.getMonthValue();
+		int yyyy = dat.getYear();
+		System.out.println(dd + "-" + mm + "-" + yyyy);
+		System.out.printf("%d-%d-%d", dd, mm, yyyy, "\n");
+		LocalTime time = LocalTime.now();
+		System.out.println("Joda Time" + time);
+		int hour = time.getHour();
+		int m = time.getMinute();
+		int s = time.getSecond();
+		time.getNano();
+		System.out.println(hour);
+
+		LocalDateTime dt = LocalDateTime.of(1994, 05, 28, 12, 10);
+		System.out.println(dt);
+		System.out.println("After 6 month" + dt.plusMonths(6));
+		System.out.println("Before 6 Month" + dt.minusMonths(6));
+
+		int n = 2000;
+		Year year = Year.of(n);
+		if (year.isLeap())
+			System.out.println("leap year");
+		else
+			System.out.println("not Leap Year");
 	}
 
 }
